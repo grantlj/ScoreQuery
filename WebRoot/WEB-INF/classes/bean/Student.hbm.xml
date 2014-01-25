@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+ <class name="Student">
+  <id column="id" name="id" type="java.lang.Integer">
+   <generator class="assigned"/>
+  </id>
+  <property column="name" generated="never" lazy="false"
+   name="name" not-null="true" type="java.lang.String" unique="false"/>
+  <property column="pwd" generated="never" lazy="false"
+   name="pwd" not-null="true" type="java.lang.String"/>
+   
+   <property column="scoreList" generated="never" lazy="false"
+   name="scoreList" not-null="true" type="java.lang.String" unique="false"/>
+ 
+  <property column="gpa" generated="never" lazy="false"
+   name="gpa" not-null="true" type="double"/>
+   
+    <property column="rank" generated="never" lazy="false"
+   name="rank" not-null="false" type="int"/>
+  
+ </class>
+</hibernate-mapping>

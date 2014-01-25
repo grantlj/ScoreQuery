@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+ <class name="ClassInfo">
+ <id column="id" name="id" type="java.lang.Integer">
+   <generator class="increment"/>
+  </id>
+  <property column="chartTitle" generated="never" lazy="false"
+   name="chartTitle" not-null="true" type="java.lang.String" unique="true"/>
+  <property column="studentCount" generated="never" lazy="false"
+ name="studentCount" not-null="true" type="int" unique="false"/>
+  <property column="subjectCount" generated="never" lazy="false"
+name="subjectCount" not-null="true" type="int" unique="false"/>
+  <property column="avgGpa" generated="never" lazy="false"
+name="avgGpa" not-null="true" type="double" unique="false"/>
+ </class>
+</hibernate-mapping>

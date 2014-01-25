@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ScoreQuery"
+  id="myeclipse.1390564988884"
+  context-root="/ScoreQuery"
+  j2ee-spec="5.0"
+  archive="ScoreQuery.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

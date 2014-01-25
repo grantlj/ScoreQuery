@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+	<!-- 数据库驱动，设计者已经给了我们一些常用配置 -->
+	<property name="connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="connection.username">root</property>
+	<property name="connection.url">jdbc:mysql://localhost/ScoreQuery</property>
+
+	<!-- 配置dialect -->
+	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="show_sql">true</property>
+	<!-- 配置对象管理映射文件 -->
+	
+	<!-- 如果数据库中没有这张表  就自动创建 -->
+	<property name="hbm2ddl.auto">update</property>
+	
+	<property name="connection.password">940414</property>
+	<mapping resource="bean/Admin.hbm.xml" />
+	<mapping resource="bean/Subject.hbm.xml" />
+	<mapping resource="bean/Student.hbm.xml" />
+
+	<mapping resource="bean/ClassInfo.hbm.xml"/>
+</session-factory>
+</hibernate-configuration>

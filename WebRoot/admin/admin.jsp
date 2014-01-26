@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="bean.ConfigFile" %>
+<%@ page import="java.text.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -50,10 +52,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <%
       }
+      
+      else 
+        {
+         DecimalFormat gpaFormat = new DecimalFormat("###.##");
+             
+          ConfigFile cfb=(ConfigFile) request.getAttribute("cfb");
+          String chartTitle=cfb.getChartTitle();
+	      int stuCount=cfb.getStuCount();
+	      int subjectCount=cfb.getSubjectCount();
+	      double avgGpa=cfb.getAvgGpa();
+	      String date=cfb.getDate();
+	       
     %>  
    
+    <table border="1">
+      <tr>
+        <th>成绩单名称</th><th>学生人数</th><th>科目总数</th><th>平均绩点</th><th>录入时间</th><th>操作</th>
+      </tr>
+      <tr>
+        <td><%=chartTitle%></td>
+        <td><%=stuCount%></td>
+        <td><%=subjectCount%></td>
+        <td><%=gpaFormat.format(avgGpa)%></td>
+        <td><%=date%></td> 
+        <td><a href="admin/ViewDo" target="blank">查看</a>&nbsp;<a href="admin/DeleteDo" target="blank">删除</a></td>
+      </tr>
+    </table>
     <hr>
-    
+      
+    <%
+       }
+     %>
     </center>
    
   </body>

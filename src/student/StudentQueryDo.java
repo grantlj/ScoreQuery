@@ -1,26 +1,26 @@
-package admin;
+package student;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.ClassInfo;
+import bean.Student;
+import bean.Subject;
+
 import util.GeneralFunc;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-public class ScoreUploadDo extends HttpServlet {
+public class StudentQueryDo extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public ScoreUploadDo() {
+	public StudentQueryDo() {
 		super();
 	}
 
@@ -44,7 +44,7 @@ public class ScoreUploadDo extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.doPost(request, response);
+      this.doPost(request, response);
 	}
 
 	/**
@@ -57,54 +57,49 @@ public class ScoreUploadDo extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
-	private String webTempPath=null;
-	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try
-		{
-		response.setContentType("text/plain");  
+    
+	String u,p;
+	u=(String) request.getParameter("username");
+	p=(String) request.getParameter("userpwd");
+    Student stub=GeneralFunc.getStudentScore(u,p);
+    
+    if (stub==null)
+    {
+    	response.setContentType("text/html");  
         request.setCharacterEncoding("utf-8");  
         response.setCharacterEncoding("utf-8");  
-  
-        // file limit size of 5 MB  
-        webTempPath=GeneralFunc.getDefaultdir();
-        MultipartRequest mpr = new MultipartRequest(request, webTempPath,  
-                120 * 1024 * 1024, "utf-8", new DefaultFileRenamePolicy());  
-        // System.out.println("The file length  
-        // is::"+mpr.getFile(webTempPath).length());  
-        Enumeration params = mpr.getFileNames();  
-         
-        // mpr.getParameter("name");  
-        request.getSession().setAttribute("existed", "yes");
-        response.setContentType("text/html");  
-  
         PrintWriter out = response.getWriter();  
   
         out.println("<html>");  
         out.println("<head>");  
         out.println("<title>Servlet upload</title>");
-        out.println("<meta http-equiv=\"refresh\" content=5;url=AdminLoginDo");
+        out.println("<meta http-equiv=\"refresh\" content=3;url=studentquery.jsp");
         out.println("</head>");  
         out.println("<body>");  
-        for (int i = 1; params.hasMoreElements(); i++) {  
-            String src = new String(mpr.getFilesystemName((String) params  
-                    .nextElement()));  
-            
-            GeneralFunc.initialScoreFile(src);
-            out.println("成绩文件："+src+" 已经上传！<br>");
-            out.println("5秒后自动跳转。。。");
-        }  
+        out.println("用户名或密码不正确，请核对！");
+        out.println("3秒后自动跳转。。。");
   
         out.println("</body>");  
         out.println("</html>");
-		}
-		catch (Exception e)
-		{
-		    request.getSession().setAttribute("existed", "no");
-			response.sendRedirect("AdminLoginDo");
-		}
-        
+    
+    
+    }
+    
+    else
+    {
+    	//valid!
+    	ClassInfo cib=GeneralFunc.getClassInfo();
+		ArrayList<Subject> subjectList=GeneralFunc.getSubjectList(cib.getSubjectCount());
+		request.setAttribute("sublb", subjectList);
+		request.setAttribute("cib", cib);
+		request.setAttribute("stub", stub);
+		
+		request.getRequestDispatcher("result.jsp").forward(request, response);
+    }
+	
+	
 	}
 
 	/**

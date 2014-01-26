@@ -2,7 +2,14 @@ package bean;
 
 public class Student {
   private Integer id;
-  private String name;
+  private String stuId;
+  public String getStuId() {
+	return stuId;
+}
+public void setStuId(String stuId) {
+	this.stuId = stuId;
+}
+private String name;
   private String pwd;
   private String scoreList;
   private double gpa;

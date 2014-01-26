@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'login.jsp' starting page</title>
+    <title>成绩查询</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,6 +23,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+     <center>
+      <h2>成绩查询</h2>
+      <form action="student/StudentQueryDo" method="post">
+                  用户名（默认为学号）：<input type="text" name="username"/><br/>
+                 密&nbsp;码（默认为学号）：&nbsp;<input type="password" name="userpwd"/><br/>
+      <input type="submit" value="查询">
+      <input type="reset" value="重填">
+      </form>
+    </center>
   </body>
 </html>

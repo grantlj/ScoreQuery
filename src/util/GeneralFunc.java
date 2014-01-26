@@ -3,10 +3,16 @@ package util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -14,6 +20,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import bean.ClassInfo;
+import bean.ConfigFile;
+import bean.Student;
+import bean.Subject;
 
 
 
@@ -168,5 +179,70 @@ public static void initialScoreFile(String src) throws FileNotFoundException, IO
 	  DbOperator.saveNewClass(chartTitle, stuCount, subjectCount, avgGpa);
 	  DbOperator.setClassTableClear(true);
 	  
+	  saveInfoToConfigFile(chartTitle,stuCount,subjectCount,avgGpa);
+	  
+  }
+  
+  private static void saveInfoToConfigFile(String chartTitle,int stuCount,int subjectCount,double avgGpa) throws IOException
+  {
+	  
+	  ConfigFile cf=new ConfigFile();
+	  cf.setAvgGpa(avgGpa);cf.setChartTitle(chartTitle);cf.setStuCount(stuCount);cf.setSubjectCount(subjectCount);
+	  cf.setDate(new Date().toString());
+	  
+	  FileOutputStream fs = new FileOutputStream(configFilePath);
+	  ObjectOutputStream os = new ObjectOutputStream(fs);
+	  os.writeObject(cf);
+	  os.close();
+	  
+	  
+  }
+  
+  public static ConfigFile getInfoFromConfigFile() throws IOException, ClassNotFoundException
+  {
+	  ConfigFile cf=null;
+	  FileInputStream fs = new FileInputStream(configFilePath);
+	  ObjectInputStream os = new ObjectInputStream(fs);
+	  cf=(ConfigFile) os.readObject();
+	  os.close();
+	  return cf;
+  }
+  
+  public static ClassInfo getClassInfo()
+  {
+	 ClassInfo cib=DbOperator.getClassInfo();
+	 return cib;
+  }
+  
+  public static ArrayList<Subject> getSubjectList(int SubjectCount)
+  {
+	  ArrayList<Subject> sl=new ArrayList<Subject>();
+	  for (int i=0;i<SubjectCount;i++)
+		  sl.add(DbOperator.getSubject(i+1));
+	  return sl;
+  }
+  
+  public static ArrayList<Student> getStudentList(int StudentCount)
+  {
+	  ArrayList<Student> sl=new ArrayList<Student>();
+	  for (int i=0;i<StudentCount;i++)
+		try {
+			sl.add(DbOperator.getStudent(i+1));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  return sl;
+  }
+
+public static void deleteAll() {
+  new File(configFilePath).delete();
+  new File(defaultxlsPath).delete();
+  DbOperator.dropAllTable();
 }
+
+public static Student getStudentScore(String u, String p) {
+    return DbOperator.getStudentbyUP(u,p);
+}
+
 }

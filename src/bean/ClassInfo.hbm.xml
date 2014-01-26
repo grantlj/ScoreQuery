@@ -4,7 +4,7 @@
 <hibernate-mapping package="bean">
  <class name="ClassInfo">
  <id column="id" name="id" type="java.lang.Integer">
-   <generator class="increment"/>
+   <generator class="assigned"/>
   </id>
   <property column="chartTitle" generated="never" lazy="false"
    name="chartTitle" not-null="true" type="java.lang.String" unique="true"/>

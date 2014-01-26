@@ -2,26 +2,25 @@ package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.HibernateException;
-
+import util.GeneralFunc;
+import bean.ClassInfo;
 import bean.ConfigFile;
+import bean.Student;
+import bean.Subject;
 
-import util.*;
-
-public class AdminLoginDo extends HttpServlet {
+public class ViewDo extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AdminLoginDo() {
+	public ViewDo() {
 		super();
 	}
 
@@ -60,49 +59,31 @@ public class AdminLoginDo extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-       String u,p;
-       u=(String) request.getParameter("username");
-       p=(String) request.getParameter("userpwd");
-       
-       try {
-		if (GeneralFunc.validAdmin(u,p))
-		   {
-			  request.getSession().setAttribute("userPrivilege", "admin");
-			  request.getSession().setAttribute("loginUser", u);
-			  
-			  if (!GeneralFunc.checkScoreExists())
-			  {
-				  request.getSession().setAttribute("existed","no");
-				  response.sendRedirect("admin.jsp");
-			  }
-				  
-			  else
-			  {
-				  request.getSession().setAttribute("existed","yes");
-				  //Set beans.
-				  try {
-					ConfigFile cfb=GeneralFunc.getInfoFromConfigFile();
-					request.setAttribute("cfb", cfb);
-					request.getRequestDispatcher("admin.jsp").forward(request, response);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-				   response.sendRedirect("login.jsp");
-				}
-				  
-			  }
+		//request.getSession().setAttribute("userPrivilege", "admin");
+	    //request.getSession().setAttribute("loginUser", u);
+		String userPri,loginUser;
+		userPri=(String)request.getSession().getAttribute("userPrivilege");
+		loginUser=(String) request.getSession().getAttribute("loginUser");
+		if ((userPri==null || loginUser==null) || !(userPri.equals("admin")))
+			response.sendRedirect("login.jsp");
+		else
+		{
+			if (!GeneralFunc.checkScoreExists())
+				response.sendRedirect("admin.jsp");
+			else
+			{
+				ClassInfo cib=GeneralFunc.getClassInfo();
+				ArrayList<Subject> subjectList=GeneralFunc.getSubjectList(cib.getSubjectCount());
+				ArrayList<Student> studentList=GeneralFunc.getStudentList(cib.getStudentCount());
+				request.setAttribute("cib",cib);
+				request.setAttribute("sublb", subjectList);
+				request.setAttribute("stulb", studentList);
+				request.getRequestDispatcher("view.jsp").forward(request, response);
+			    
+			}
+		
+		}
 			
-		   }
-		   
-		   else
-			 response.sendRedirect("login.jsp");
-		   
-	} catch (HibernateException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 	}
 
 	/**

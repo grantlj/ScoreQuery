@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       };
      %>
      </table>
-    
+         <a href="javascript:window.print();">打印</a>
      </center>
   </body> 
 </html>

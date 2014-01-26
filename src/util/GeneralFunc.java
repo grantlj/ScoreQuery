@@ -166,7 +166,7 @@ public static void initialScoreFile(String src) throws FileNotFoundException, IO
 		  scoreList=scoreList.substring(0,scoreList.length()-1);
 		  gpa/=pointCount;
 		  avgGpa+=gpa;
-		  DbOperator.saveNewStudent(stuId, stuName, stuId, scoreList, gpa);
+		  DbOperator.saveNewStudent(i+1,stuId, stuName, stuId, scoreList, gpa);
 		  //System.out.println();
 		  stuP+=2;
 		

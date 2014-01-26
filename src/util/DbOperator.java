@@ -58,10 +58,11 @@ public static void saveNewSubject(int id,String arg1, String arg2)
 	  }
   }
   
-  public static void saveNewStudent(String stuId,String name,String pwd,String scoreList,double gpa)
+  public static void saveNewStudent(int i,String stuId,String name,String pwd,String scoreList,double gpa)
   {
 	  Student newStu=new Student();
 	 // newStu.setId(Integer.valueOf(stuId));
+	  newStu.setId(i);
 	  newStu.setStuId(stuId);
 	  newStu.setName(name);
 	  newStu.setPwd(pwd);

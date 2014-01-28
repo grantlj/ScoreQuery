@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
       Student ts=(Student) request.getAttribute("stub");
       String name=ts.getName();
-      String id=ts.getId().toString();
+      String id=ts.getStuId();
       String[] args=ts.getScoreList().split(",");
       double gpa=ts.getGpa();
       

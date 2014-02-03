@@ -235,7 +235,7 @@ public static Student getStudentbyUP(String u, String p) {
 	// TODO Auto-generated method stub
 	Session sess=MySessionFactory.getSessionFactory().openSession();
 	
-	Student tmp;
+	/*Student tmp;
 	int stuCount=getClassInfo().getStudentCount();
 	for (int i=1;i<=stuCount;i++)
 	{
@@ -248,7 +248,12 @@ public static Student getStudentbyUP(String u, String p) {
 	}
 	sess.close();
 	return null;
-
+	*/
+	
+	Student tmp;
+	tmp=(Student) sess.createQuery("from Student where stuID="+u+" and pwd="+p).uniqueResult();
+    sess.close();
+    return tmp;
 	
 }
 

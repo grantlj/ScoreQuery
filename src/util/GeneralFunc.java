@@ -245,4 +245,17 @@ public static Student getStudentScore(String u, String p) {
     return DbOperator.getStudentbyUP(u,p);
 }
 
+public static boolean validStudent(String username, String orgpwd) {
+	if (getStudentScore(username,orgpwd)==null) 
+		return false;
+	else
+		return true;
+}
+
+public static void changeStudentPwd(String username, String orgpwd,String pwd1) {
+	// TODO Auto-generated method stub
+	DbOperator.changeStudentPwd(username,orgpwd,pwd1);
+	
+}
+
 }

@@ -19,11 +19,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+  <style>
+    #foot
+    {
+       font-size:15;
+       position:absolute;    
+       float:right;
+       bottom:0px;
+    }
+    
+  
+  </style>
   </head>
   
   <body>
-     <center>
+     
+     <div id="content">
+      <center>
       <h2>成绩查询</h2>
       <form action="student/StudentQueryDo" method="post">
                   用户名（默认为学号）：<input type="text" name="username"/><br/>
@@ -31,6 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <input type="submit" value="查询">
       <input type="reset" value="重填">
       </form>
-    </center>
+      </center>
+     </div>
+    
+    <div id="foot"><a href="student/studentpwd.jsp" target="_blank">修改密码</a></div>
   </body>
 </html>

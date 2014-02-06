@@ -4,8 +4,10 @@ package util;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -255,6 +257,30 @@ public static Student getStudentbyUP(String u, String p) {
     sess.close();
     return tmp;
 	
+}
+
+@SuppressWarnings("unused")
+public static void changeStudentPwd(String username, String orgpwd,String pwd1) {
+	// TODO Auto-generated method stub
+	Student tmp;
+	Session sess=MySessionFactory.getSessionFactory().openSession();
+	Transaction trans=sess.beginTransaction();
+	Query query=sess.createQuery("from Student where stuID="+username+" and pwd="+orgpwd);
+	@SuppressWarnings("unchecked")
+	List<Student> ret=query.list();
+	for (Student r:ret)
+	{
+		
+		
+		if (r.getStuId().equals(username) && r.getPwd().equals(orgpwd))
+		{
+			System.out.println("hi");
+			r.setPwd(pwd1);
+	        //sess.saveOrUpdate(r);
+		}
+	}
+	trans.commit();
+	sess.close();
 }
 
 }

@@ -41,6 +41,13 @@
     <servlet-name>StudentQueryDo</servlet-name>
     <servlet-class>student.StudentQueryDo</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>StudentChangePwdDo</servlet-name>
+    <servlet-class>student.StudentChangePwdDo</servlet-class>
+  </servlet>
+
 
 
 
@@ -70,6 +77,10 @@
   <servlet-mapping>
     <servlet-name>StudentQueryDo</servlet-name>
     <url-pattern>/student/StudentQueryDo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StudentChangePwdDo</servlet-name>
+    <url-pattern>/student/StudentChangePwdDo</url-pattern>
   </servlet-mapping>	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

@@ -85,7 +85,7 @@ public class StudentChangePwdDo extends HttpServlet {
           out.println("<html>");  
           out.println("<head>");  
           out.println("<title>修改失败</title>");
-          out.println("<meta http-equiv=\"refresh\" content=3;url=studentquery.jsp");
+          out.println("<meta http-equiv=\"refresh\" content=3;url=studentpwd.jsp");
           out.println("</head>");  
           out.println("<body>");  
           out.println("用户名或密码不正确，请核对！");
@@ -109,7 +109,7 @@ public class StudentChangePwdDo extends HttpServlet {
           out.println("<html>");  
           out.println("<head>");  
           out.println("<title>修改成功</title>");
-          out.println("<meta http-equiv=\"refresh\" content=3;url=studentquery.jsp");
+          out.println("<meta http-equiv=\"refresh\" content=3;url=studentpwd.jsp");
           out.println("</head>");  
           out.println("<body>");  
           out.println("修改密码成功！");

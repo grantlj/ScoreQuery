@@ -253,7 +253,9 @@ public static Student getStudentbyUP(String u, String p) {
 	*/
 	
 	Student tmp;
-	tmp=(Student) sess.createQuery("from Student where stuID="+u+" and pwd="+p).uniqueResult();
+	tmp=(Student) sess.createQuery("from Student where stuID=:arg1 and pwd=:arg2").setString("arg1", u)
+			                                                                       .setString("arg2", p)
+			                                                                       .uniqueResult();
     sess.close();
     return tmp;
 	
@@ -265,7 +267,10 @@ public static void changeStudentPwd(String username, String orgpwd,String pwd1) 
 	Student tmp;
 	Session sess=MySessionFactory.getSessionFactory().openSession();
 	Transaction trans=sess.beginTransaction();
-	Query query=sess.createQuery("from Student where stuID="+username+" and pwd="+orgpwd);
+	Query query=sess.createQuery("from Student where stuID=:arg1 and pwd=:arg2");
+	query.setString("arg1", username);
+	query.setString("arg2", orgpwd);
+	
 	@SuppressWarnings("unchecked")
 	List<Student> ret=query.list();
 	for (Student r:ret)
